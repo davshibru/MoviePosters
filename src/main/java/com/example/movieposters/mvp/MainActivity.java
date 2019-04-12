@@ -29,11 +29,6 @@ public class MainActivity extends AppCompatActivity implements Contracter.view{
         presentor = new Model(this);
         textView = (TextView) findViewById(R.id.textView);
         presentor.getDataFromSite(BaseUrl);
-
-//        textView.setText(doIt);
-
-
-//        imageViewset(img, imageView);
     }
 
     @Override

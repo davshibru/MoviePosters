@@ -25,14 +25,18 @@ import com.example.movieposters.mvp.RecyclerViewAdapterMovie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CinemaActivty extends AppCompatActivity {
+public class CinemaActivty extends AppCompatActivity implements Contracter.view {
 
     RecyclerView myRecyclerView;
-    List<SessionsForZal> sessionsForZals;
-    List<zalsNorm> zalsNorms;
-    List<Teathers> teathers;
-
-
+    ImageView imageView;
+    TextView textView;
+    String Title;
+    String Poster;
+    String Vote;
+    String Countries;
+    String Actors;
+    String Data;
+    Model presentor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,65 +45,38 @@ public class CinemaActivty extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        ImageView imageView = (ImageView) findViewById(R.id.poster_in_cinema);
-        String Title = intent.getExtras().getString("Title");
-        String Poster = intent.getExtras().getString("Poster");
-        String Data = intent.getExtras().getString("Data");
+        textView = (TextView) findViewById(R.id.movieInfo);
+        imageView = (ImageView) findViewById(R.id.poster_in_cinema);
+        presentor = new Model(this);
+        Title = intent.getExtras().getString("Title");
+        Poster = intent.getExtras().getString("Poster");
+        Vote = intent.getExtras().getString("Vote");
+        Countries = intent.getExtras().getString("Countries");
+        Actors = intent.getExtras().getString("Actors");
+        Data = intent.getExtras().getString("Data");
 
-//        List<Teathers> lstTeath = sort(Data);
+        presentor.ProcessData(Data, Poster, Actors);
+    }
 
-        Log.e("teather", "check");
 
+
+    public void Display(String HDPoster, ArrayList<KinoTeather> kinoTeathers, String ActorsNorm ){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Title);
-        String HDPoster = MakeNormalImg(Poster);
+
 
         Glide.with(this)
                 .asBitmap()
                 .load(HDPoster)
                 .into(imageView);
 
-
-        ArrayList<KinoTeather> kinoTeathers = sort(Data);
+        textView.setText("Актеры: " + ActorsNorm + "\n\n" + "оценка фильма: " + Vote + "\n\n" + Countries);
 
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_cinema);
         RecyclerViewAdapterCinema recyclerViewAdapterCinema = new RecyclerViewAdapterCinema(kinoTeathers);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setAdapter(recyclerViewAdapterCinema);
-
     }
 
-    public String MakeNormalImg(String img){
-        String[] image = img.split("sm_");
-        img = image[0] + image[1];
-        return img;
-    }
-
-    public ArrayList<KinoTeather> sort(String Data){
-        ArrayList<KinoTeather> kinoTeathers = new ArrayList<>();
-
-        String[] str = Data.split("razdelitkinoteather");
-        for (String string : str){
-            if (!string.equals("")) {
-                String[] zals = string.split("razdelitzal");
-                ArrayList<Session_Zals_Time> session_zals_times = new ArrayList<>();
-                for (int i = 2; i < zals.length; i++) {
-
-                    String sessiansAndZals = "";
-                    String[] seans = zals[i].split("razdelitvremi");
-                    sessiansAndZals += seans[0] + ":" + "\n";
-
-                    for (int j = 1; j < seans.length; j++ ) {
-                        sessiansAndZals += seans[j] + "\n";
-                    }
-                    session_zals_times.add(new Session_Zals_Time(sessiansAndZals));
-                }
-                KinoTeather kinoTeather = new KinoTeather(zals[1], session_zals_times);
-                kinoTeathers.add(kinoTeather);
-            }
-        }
-
-        return kinoTeathers;
-    }
 }

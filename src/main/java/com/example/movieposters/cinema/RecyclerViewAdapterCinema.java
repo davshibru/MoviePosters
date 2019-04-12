@@ -53,46 +53,4 @@ public class RecyclerViewAdapterCinema extends ExpandableRecyclerViewAdapter<Kin
     }
 
 
-//    Context mContext;
-//    List<Teathers> mData;
-//
-//    public RecyclerViewAdapterCinema(Context mContext, List<Teathers> mData) {
-//        this.mContext = mContext;
-//        this.mData = mData;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//
-//        View v;
-//        v = LayoutInflater.from(mContext).inflate(R.layout.item_cinema, viewGroup,false);
-//        MyViewHolder viewHolder = new MyViewHolder(v);
-//        return viewHolder;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-//
-//        Log.e("Recycrer",  mData.get(i).getTeathers());
-//        myViewHolder.tv_cinema.setText(mData.get(i).getTeathers());
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return mData.size();
-//    }
-//
-//    public static class MyViewHolder extends RecyclerView.ViewHolder {
-//
-//        private TextView tv_cinema;
-//        private ExpandableListView listView;
-//
-//        public MyViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            tv_cinema = (TextView) itemView.findViewById(R.id.cinema_name);
-//            listView = (ExpandableListView) itemView.findViewById(R.id.list_session);
-//        }
-//    }
 }

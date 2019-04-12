@@ -54,39 +54,26 @@ public class Model implements Contracter.model{
             @Override
             public void onResponse(Call<FMovie> call, Response<FMovie> response) {
                 List<PoserAndTitle> movieData = new ArrayList<>();
-                String str = "";
-                String img = "";
                 FMovie fmovie = response.body();
-                boolean secsess = fmovie.getSucces();
-                int count = fmovie.getCount();
+
                 List<Movie> movies = fmovie.getResult();
                 for (Movie movie : movies) {
-                    str += movie.getId() + "\n";
-                    if (movie.getId() == 6734) {
-                        img = movie.getImage();
-                    }
-                    str += movie.getImage() + "\n";
-                    str += movie.getName() + "\n";
-
 
                     List<Kinoteater> kinoteaters = movie.getSessions();
                     List<Zal> Zals = new ArrayList<>();
                     String teather = "";
+
                     for (Kinoteater kinoteater : kinoteaters) {
                         if (kinoteater.getK_name() != null){
                             teather = kinoteater.getK_name();
                         }
-//                        str += "\t\t\t\t" + kinoteater.getK_name() + "\n";
-//                        str += "\t\t\t\t" + kinoteater.getH_name() + "\n";
                         Zals.add(new Zal(kinoteater.getH_name(), getSession(kinoteater.getSessions()), teather)) ;
                     }
 
-                    movieData.add(new PoserAndTitle(movie.getName(),movie.getImage(), Zals));
-                    str += movie.getVote() + "\n\n";
+                    movieData.add(new PoserAndTitle(movie.getName(),movie.getImage(), Zals, movie.getVote(), movie.getCountries(), movie.getActors()));
 
                 }
                 view.setRecyclerViev(movieData);
-                Log.e("TTTTTTTTTT", str);
             }
                 @Override
                 public void onFailure(Call<FMovie> call, Throwable t) {

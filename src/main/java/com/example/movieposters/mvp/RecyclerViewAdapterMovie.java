@@ -45,6 +45,9 @@ public class RecyclerViewAdapterMovie extends RecyclerView.Adapter<RecyclerViewA
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final String Title = mData.get(i).getTitle();
         final String Poster = "http://kinoafisha.ua" + mData.get(i).getPoster();
+        final String Vote = mData.get(i).getVote();
+        final String Countries = mData.get(i).getCountries();
+        final String Actors = mData.get(i).getActors();
 
         final String data = readingTeaterAndSession(mData.get(i).getZals());
 
@@ -62,6 +65,9 @@ public class RecyclerViewAdapterMovie extends RecyclerView.Adapter<RecyclerViewA
                 intent.putExtra("Title", Title);
                 intent.putExtra("Poster", Poster);
                 intent.putExtra("Data", data);
+                intent.putExtra("Vote", Vote);
+                intent.putExtra("Countries", Countries);
+                intent.putExtra("Actors", Actors);
                 mContext.startActivity(intent);
             }
         });
